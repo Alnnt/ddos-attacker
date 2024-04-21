@@ -1,0 +1,1 @@
+"../cmake-build-debug/win_da.exe" -address 127.0.0.1 -port 1234 -hide -log
