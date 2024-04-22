@@ -5,6 +5,12 @@
 #include <stdlib.h>
 #include "environment.h"
 
+#define COMMAND_ADDRESS "-address"
+#define COMMAND_PORT "-port"
+#define COMMAND_HIDE "-hide"
+#define COMMAND_LOG "-log"
+#define COMMAND_THREAD "-thread"
+
 const char *USAGE_STR =
         "Usage: win_da.exe [-options] [args...]\n"
         "It includes:\n"
@@ -20,21 +26,21 @@ void CheckAndThrowArgsException(int *i, int argc, const char *str);
 
 void ProcessCommandLine(int argc, char **argv) {
     for (int i = 0; i < argc; ++i) {
-        if (!strcmp("-address", argv[i])) {
+        if (!strcmp(COMMAND_ADDRESS, argv[i])) {
             CheckAndThrowArgsException(&i, argc, REQUIRE_ARGS_STR);
             ADDRESS_IP = argv[i];
 
-        } else if (!strcmp("-port", argv[i])) {
+        } else if (!strcmp(COMMAND_PORT, argv[i])) {
             CheckAndThrowArgsException(&i, argc, REQUIRE_ARGS_STR);
             ADDRESS_PORT = atoi(argv[i]);
 
-        } else if (!strcmp("-hide", argv[i])) {
+        } else if (!strcmp(COMMAND_HIDE, argv[i])) {
             ShowWindow(GetConsoleWindow(), SW_HIDE);
 
-        } else if (!strcmp("-log", argv[i])) {
+        } else if (!strcmp(COMMAND_LOG, argv[i])) {
             LOG = true;
 
-        } else if (!strcmp("-thread", argv[i])) {
+        } else if (!strcmp(COMMAND_THREAD, argv[i])) {
             CheckAndThrowArgsException(&i, argc, REQUIRE_ARGS_STR);
             THREAD_COUNT = atoi(argv[i]);
         }

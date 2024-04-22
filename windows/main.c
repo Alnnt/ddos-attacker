@@ -12,8 +12,8 @@
 
 #pragma comment(lib, "ws2_32.lib")
 
-_Noreturn void UdpFlood();
 void *threadRunnable(void *tid);
+_Noreturn void UdpFlood();
 
 int main(int argc, char **argv) {
     ProcessCommandLine(argc, argv);
