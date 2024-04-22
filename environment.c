@@ -6,3 +6,4 @@
 char *ADDRESS_IP = NULL;
 u_short ADDRESS_PORT = NULL_PORT;
 bool LOG = false;
+u_int THREAD_COUNT = 1;
