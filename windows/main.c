@@ -6,15 +6,36 @@
 #include <string.h>
 #include <winsock2.h>
 #include <stdbool.h>
+#include <pthread.h>
 #include "../usage.h"
 #include "../environment.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
 _Noreturn void UdpFlood();
+void *threadRunnable(void *tid);
 
 int main(int argc, char **argv) {
     ProcessCommandLine(argc, argv);
+    pthread_t threads[THREAD_COUNT];
+    int status, i;
+    for (i = 0; i < THREAD_COUNT; i++) { //循环创建10个现场
+        // 创建线程，线程函数传入参数为i
+        status = pthread_create(&threads[i], NULL, threadRunnable, (void *) i);
+        if (status != 0) { // 线程创建不成功
+            printf("pthread_create returned error code %d\n", status);
+            exit(1);
+        }
+    }
+    // 等待线程执行完成
+    for (i = 0; i < THREAD_COUNT; i++) {
+        pthread_join(threads[i], NULL);
+    }
+    exit(0);
+}
+
+void *threadRunnable(void *tid) {
+    printf("Thread start TID: %d\n", (int) tid);
     UdpFlood();
 }
 
